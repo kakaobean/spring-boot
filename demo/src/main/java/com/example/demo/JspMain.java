@@ -15,7 +15,7 @@ public class JspMain {
 	
 	@RequestMapping("/main")
 	public String jspMain() throws Exception{
-		System.out.println(mBoardMapper.boardCount());
+//		System.out.println(mBoardMapper.boardCount());
 		return "main";
 	}
 }
