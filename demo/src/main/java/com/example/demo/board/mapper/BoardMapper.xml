@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
     <select id="boardCount" resultType="int">
         SELECT	COUNT(*)
-        FROM	COMMON
+        FROM	COMMON 
     </select> 
 </mapper>
 

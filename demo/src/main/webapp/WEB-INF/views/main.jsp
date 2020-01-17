@@ -5,8 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="resource/js/jquery-3.3.1.js"></script>
+<script src="resource/js/main.js"></script>
 </head>
+<script type="text/javascript">
+// var test = '${test}';
+// function init(){
+// 	alert();	
+// }
+// init();
+</script>
 <body>
- main test
+ main test  dd33sdddds
+ <div id="test">input</div>
 </body>
 </html>
