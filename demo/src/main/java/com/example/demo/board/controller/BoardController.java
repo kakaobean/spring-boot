@@ -28,8 +28,45 @@ public class BoardController {
 		model.addAttribute("test", "sample");
 		return "main";
 	}
+	@RequestMapping("/index")
+	public String index(Model model) {
+		return "index";
+	}
+	@RequestMapping("/dashboardFinance")
+	public String dashboardFinance() {
+		return "dashboard-finance";
+	}
+	@RequestMapping("/dashboardInfluencer")
+	public String dashboardInfluencer() {
+		return "dashboard-influencer";
+	}
+	@RequestMapping("/dashboardSales")
+	public String dashboardSales() {
+		return "dashboard-sales";
+	}
+	@RequestMapping("/ecommerceProductCheckout")
+	public String ecommerceProductCheckout() {
+		return "ecommerce-product-checkout";
+	}
+	@RequestMapping("/ecommerceProductSingle")
+	public String ecommerceProductSingle() {
+		return "ecommerce-product-single";
+	}
+	@RequestMapping("/ecommerceProduct")
+	public String ecommerceProduct() {
+		return "ecommerce-product";
+	}
+	@RequestMapping("/influencerFinder")
+	public String influencerFinder() {
+		return "influencer-finder";
+	}
+	@RequestMapping("/influencerProfile")
+	public String influencerProfile() {
+		return "influencer-profile";
+	}
 	
 	@RequestMapping(value="/getTest", method= RequestMethod.POST)
+	// @ResponseBody 위로 올려서 return 되는지 테스트 해볼 것
 		public @ResponseBody Map<String, Object> getTest() throws Exception{
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("testCount", boardService.getBoardCount());
