@@ -2827,6 +2827,7 @@ readers do not read off random characters that represent icons */
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
   font-weight: normal;
+/*   인식 못해서 주석처리 > 전에 problem 생겨서 html 파일 삭제함 */
   src: url("../webfonts/fa-brands-400.eot");
   src: url("../webfonts/fa-brands-400d41d.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-brands-400.html") format("woff2"), url("../webfonts/fa-brands-400.woff") format("woff"), url("../webfonts/fa-brands-400.ttf") format("truetype"), url("../webfonts/fa-brands-400.svg#fontawesome") format("svg"); }
 

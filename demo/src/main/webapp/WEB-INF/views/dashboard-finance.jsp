@@ -382,8 +382,8 @@
     <script src="resource/concept-master/assets/vendor/charts/morris-bundle/morris.js"></script>
     <script src="resource/concept-master/assets/vendor/charts/morris-bundle/morrisjs.html"></script>
     <!-- daterangepicker js -->
-    <script src="../../../../cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="../../../../cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="resource/concept-master/assets/vendor/full-calendar/js/moment.min.js"></script>
+    <script src="resource/concept-master/assets/vendor/datepicker/datepicker.js"></script>
     <script>
     $(function() {
         $('input[name="daterange"]').daterangepicker({

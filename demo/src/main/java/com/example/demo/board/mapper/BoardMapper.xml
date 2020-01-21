@@ -6,8 +6,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.example.demo.board.mapper.BoardMapper">
  
     <select id="boardCount" resultType="int">
-        SELECT	COUNT(*)
+        SELECT count(*)
         FROM	COMMON 
     </select> 
+    <select id="selectResidentPopulList" resultType="hashmap">
+		SELECT  BASE_DATE baseDate
+		        ,SGG_NM sggNm
+		        ,NATIVE_M nativeM
+		        ,NATIVE_F nativeF
+		        ,FOREIGN_F foreignF
+		        ,FOREIGN_M foreignM
+		        ,HOUSE_POPUL housePopul
+		        ,SENIOR_CITIZ seniorCitiz
+		FROM    RESIDENT_POPULAR 
+    </select> 
+    <select id="selectDynamicData" resultType="hashmap">
+    </select>
 </mapper>
 

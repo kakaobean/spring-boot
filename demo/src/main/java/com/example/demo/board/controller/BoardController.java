@@ -54,7 +54,7 @@ public class BoardController {
 	}
 	@RequestMapping("/ecommerceProduct")
 	public String ecommerceProduct() {
-		return "ecommerce-product";
+		return "ecommerceProduct";
 	}
 	@RequestMapping("/influencerFinder")
 	public String influencerFinder() {
@@ -70,7 +70,7 @@ public class BoardController {
 		public @ResponseBody Map<String, Object> getTest() throws Exception{
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("testCount", boardService.getBoardCount());
-			
+			map.put("residentPopulList", boardService.selectResidentPopulList());
 			return map;
 		}
 	}
