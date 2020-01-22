@@ -69,9 +69,11 @@ public class BoardController {
 	// @ResponseBody 위로 올려서 return 되는지 테스트 해볼 것
 		public @ResponseBody Map<String, Object> getTest() throws Exception{
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("testCount", boardService.getBoardCount());
-			map.put("residentPopulList", boardService.selectResidentPopulList());
-			return map;
+//			map.put("testCount", boardService.getBoardCount());
+//			map.put("residentPopulList", boardService.selectResidentPopulList());
+			// 동적 테스트
+//			map.put("dynamic", boardService.selectDynamicData());
+			return boardService.selectDynamicData();
 		}
 	}
 

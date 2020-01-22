@@ -1,11 +1,12 @@
 package com.example.demo.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
 	public int getBoardCount() throws Exception;
 
 	public List selectResidentPopulList() throws Exception;
 	
-	public List selectDynamicData() throws Exception;
+	public Map<String, Object> selectDynamicData() throws Exception;
 }

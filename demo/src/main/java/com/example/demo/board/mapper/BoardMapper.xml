@@ -21,6 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM    RESIDENT_POPULAR 
     </select> 
     <select id="selectDynamicData" resultType="hashmap">
+    	SELECT   ITEM_ROW itemRow
+		        ,ITEM item
+		        ,VALUE value
+		        ,ITEM_ID itemId
+		FROM    BLOCK
     </select>
 </mapper>
 

@@ -9,8 +9,9 @@ function test(){
             dataType : 'json',               /*html, text, json, xml, script*/
             method : 'post',
             success : function(d){
-                console.log("sdsafsfa");
-                makeTable('table1', d);
+                console.log("return Data : " + d.columnList);
+                console.log("return Data : " + d.dataList);
+                makeTable('table1', d.dataList, d.columnList);
             },
             error : function(e){
             	console.log(e);
@@ -18,22 +19,18 @@ function test(){
 		});
 }
 
-function makeTable(id, array){
+function makeTable(id, array, column){
+	var colModel = [];
+	for(var i = 0; i < column.length; i++){
+		colModel.push({name:column[i], align:'center'});
+	}
+	console.log(colModel);
     $("#"+id).jqGrid({
            datatype: "local",
            height: 250, 
            width : 630,
-           colNames:['기준일','자치구', '내국인(남)', '내국인(여)','외국인(남)','외국인(여)','세대당 인구','65세 이상'],
-           colModel:[
-               {name:'BASEDATE', align:'right'},
-               {name:'SGGNM', align:'right'},
-               {name:'NATIVEM', align:'right'},
-               {name:'NATIVEF', align:'right'},
-               {name:'FOREIGNM', align:'right'},
-               {name:'FOREIGNF', align:'right'},
-               {name:'HOUSEPOPUL', align:'right'},
-               {name:'SENIORCITIZ', align:'right'}
-           ],
+           colNames : column,
+           colModel : colModel,
            caption: "주민등록별 인구"
      });
 
