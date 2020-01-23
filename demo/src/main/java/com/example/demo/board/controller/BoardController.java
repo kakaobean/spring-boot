@@ -1,6 +1,7 @@
 package com.example.demo.board.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.board.service.BoardService;
 
@@ -31,6 +34,10 @@ public class BoardController {
 	@RequestMapping("/index")
 	public String index(Model model) {
 		return "index";
+	}
+	@RequestMapping("/noTiles")
+	public String noTiles() {
+		return "tiles/noTiles";
 	}
 	@RequestMapping("/dashboardFinance")
 	public String dashboardFinance() {
@@ -69,11 +76,22 @@ public class BoardController {
 	// @ResponseBody 위로 올려서 return 되는지 테스트 해볼 것
 		public @ResponseBody Map<String, Object> getTest() throws Exception{
 			Map<String, Object> map = new HashMap<String, Object>();
-//			map.put("testCount", boardService.getBoardCount());
-//			map.put("residentPopulList", boardService.selectResidentPopulList());
-			// 동적 테스트
-//			map.put("dynamic", boardService.selectDynamicData());
-			return boardService.selectDynamicData();
+			
+			// 주민등록 인구 리스트
+			return boardService.selectResidentPopulList();
+			
+			// 동적 컬럼 데이터 리스트
+//			return boardService.selectDynamicData();
 		}
+	@RequestMapping(value="/uploadTest", method= RequestMethod.POST)
+	public @ResponseBody String uploadTest(MultipartHttpServletRequest req) throws Exception{
+		
+//		Iterator<String> iter = req.getFileNames();
+//		MultipartFile files = req.getFile(iter.next());
+		MultipartFile file = req.getFile("testFile");
+		System.out.println(file.getOriginalFilename());
+		
+		return "success";
 	}
+}
 

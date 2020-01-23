@@ -28,29 +28,32 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 	@Override
-	public List selectResidentPopulList() throws Exception {
-		List m = mBoardMapper.selectResidentPopulList();
-		String str = m.get(0).toString();
-		System.out.println(str);
-		return mBoardMapper.selectResidentPopulList();
-		
+	public Map<String, Object> selectResidentPopulList() throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> list = mBoardMapper.selectResidentPopulList();
+		Map<String, Object> mapTemp = list.get(0);
+		map.put("columnList", mapTemp.keySet());
+		map.put("dataList", list);
+		return map;
 	}
 	@Override
 	public Map<String, Object> selectDynamicData() throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Object> mapTemp = new HashMap<String, Object>();
+		System.out.println("===== "+mBoardMapper.selectDynamicData());
 		List<Map<String, Object>> list = mBoardMapper.selectDynamicData();
 		List<Map<String, Object>> listTemp = new ArrayList<Map<String, Object>>();
 		List rowCount = new ArrayList<String>();
+		List column = new ArrayList<String>();
 		
 		for(int i = 0; i < list.size(); i++){
 			if(!rowCount.contains(list.get(i).get("ITEMROW"))){
 				rowCount.add(list.get(i).get("ITEMROW"));
 			}
 		}
-		System.out.println(rowCount);
-		System.out.println(rowCount.size());
-		String[] column =  {"block", "col0", "col1", "col2", "col3", "col4", "col5"};
+//		System.out.println(rowCount);
+//		System.out.println(rowCount.size());
+//		String[] column =  {"block", "col0", "col1", "col2", "col3", "col4", "col5"};
 		/**
 		 * Map< column, Object>
 		 */
@@ -62,12 +65,16 @@ public class BoardServiceImpl implements BoardService{
 		for(int i = 0; i < rowCount.size(); i++){
 			mapTemp = new HashMap<String, Object>();
 			for(int j = 0; j < list.size(); j++){
+				if(!column.contains(list.get(j).get("ITEM"))){
+					column.add(list.get(j).get("ITEM"));
+				}
 				if(((BigDecimal)list.get(j).get("ITEMROW")).intValue() == i){
 					mapTemp.put((String) list.get(j).get("ITEM"), (String) list.get(j).get("VALUE"));
 				}
 			}
 			listTemp.add(mapTemp);
 		}
+		System.out.println("column : "+column);
 		System.out.println(mapTemp.keySet());
 //		System.out.println("mapTemp : "+ mapTemp);
 //		System.out.println("listTemp : "+ listTemp);

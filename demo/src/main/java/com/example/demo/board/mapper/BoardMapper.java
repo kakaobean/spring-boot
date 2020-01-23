@@ -12,7 +12,7 @@ public interface BoardMapper {
 
 	public String stringTest() throws Exception;
 	
-	public List selectResidentPopulList() throws Exception;
+	public List<Map<String, Object>> selectResidentPopulList() throws Exception;
 	
 	public List<Map<String, Object>> selectDynamicData() throws Exception;
 

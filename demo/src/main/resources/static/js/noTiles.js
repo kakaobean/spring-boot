@@ -1,6 +1,4 @@
 function test(){
-	$("#test").append('<div>dd</div>');
-	
 	  $.ajax(
 		{
             url : '/getTest',
@@ -11,7 +9,7 @@ function test(){
             success : function(d){
                 console.log("return Data : " + d.columnList);
                 console.log("return Data : " + d.dataList);
-                makeTable('table1', d.dataList, d.columnList);
+                makeTable('jqgridTable', d.dataList, d.columnList);
             },
             error : function(e){
             	console.log(e);
@@ -47,8 +45,10 @@ function makeTable(id, array, column){
      }
 }
 
-
-
+function init(){
+	test();
+}
+init();
 
 
 

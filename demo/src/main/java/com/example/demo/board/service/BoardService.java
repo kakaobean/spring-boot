@@ -6,7 +6,7 @@ import java.util.Map;
 public interface BoardService {
 	public int getBoardCount() throws Exception;
 
-	public List selectResidentPopulList() throws Exception;
+	public Map<String, Object> selectResidentPopulList() throws Exception;
 	
 	public Map<String, Object> selectDynamicData() throws Exception;
 }
