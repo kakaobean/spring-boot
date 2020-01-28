@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 
@@ -5,7 +7,14 @@
 	<link rel="stylesheet" href="resource/js/jqgrid/css/ui.jqgrid.css">
 	<link rel="stylesheet"  type="text/css"  href="resource/js/jqgrid/css/jquery-ui.css">
     <script src="resource/concept-master/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    
+<!--     jqgrid 5.4.0 버전  excel 다운로드 기능 제공 -->
+<!-- 	<script src="resource/js/jqgrid/5.4.0/jquery.jqGrid.js"></script> -->
+	
+<!-- 	jqgrid 4버전  excel 다운로득 기능 없음 -->
 	<script src="resource/js/jqgrid/js/jquery.jqGrid.js"></script>
+
+	<script src="resource/js/jszip.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script> 
     <!-- ============================================================== -->
     <!-- main wrapper -->
@@ -97,7 +106,7 @@
                                 <div class="card-body">
                                     <form id="fileForm" name="fileForm" action="/uploadTest" enctype="multipart/form-data" method="post">
                                         <input class="form-control form-control-lg" id="testFile" name="testFile" type="file" placeholder="File Upload" aria-label="Search">
-                                        <button class="btn btn-primary search-btn" type="submit">File Upload</button>
+                                        <button class="btn btn-primary search-btn" onclick="fileUpload()">File Upload</button>
                                     </form>
                                 </div>
                             </div>
@@ -479,7 +488,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
+                             Copyright Â© 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="text-md-right footer-links d-none d-sm-block">
