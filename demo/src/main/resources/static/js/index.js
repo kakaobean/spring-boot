@@ -60,20 +60,20 @@ function fileUpload() {
 //	});
 	
    $('#fileForm').ajaxForm({
-        contentType : false,
+//        contentType : false,
+        contentType: 'application/json; charset=utf-8',
         processData: false,
         enctype: "multipart/form-data",
-        dataType : "POST",
-        dataType : 'json',
-        beforeSubmit: function(data, form, option) {
-            console.log('beforeSubmit');
-            console.log(data);
-            console.log(form);
-            console.log(option);
-        },
-        success: function(returnData) {
-        	
-            func(returnData);
+        method : "POST",
+//        dataType : 'json',
+//        beforeSubmit: function(data, form, option) {
+//            console.log('beforeSubmit');
+//            console.log(data);
+//            console.log(form);
+//            console.log(option);
+//        },
+        success: function(d) {
+        	console.log(d);
         },
         error: function(x,e){
         	// 2번 호출됨 
@@ -85,7 +85,7 @@ function fileUpload() {
 
 }
 
-// jqgrid 5.4.0 버전에서 사용 가능
+// jqgrid 5.4.0 버전에서 사용 가능    / jsp에서 jqgrid 버전 바꿔주고 실행하면 됨 
 function excelDown(){
 	$("#jqgridTable").jqGrid("exportToExcel",{
 		includeLabels : true,
@@ -97,28 +97,25 @@ function excelDown(){
 }
 
 // jqgrid 4버전대에서 자바를 사용하여 excel 다운로드 하기
-function excelDown2(){	
+// 아래 코드는 사용 못함.  poi를 사용해서 excel 다운로드시 form태그로 submit 해야한다.  / ajax 통신으로 하면 에러남
+//function excelDownload(){	
 //	var data = {
-//					name :  "testName",
-//					address : "testAddr"
-//				}
-	var data = {
-			getRowData :  $("#jqgridTable").getRowData() 
-	}
-	$.ajax({
-		  url : '/excelDownload',
-		  data : JSON.stringify(data),
-		  contentType: 'application/json; charset=utf-8',
-		  dataType : "json",
-		  method : "post",
-		  success : function(d){
-			  console.log(d);
-		  },
-		  error : function(e){
-			  console.log(e);
-		  }
-	})
-}
+//			getRowData :  $("#jqgridTable").getRowData() 
+//	}
+//	$.ajax({
+//		  url : '/excelDownload',
+//		  data : JSON.stringify(data),
+//		  contentType: 'application/json; charset=utf-8',
+////		  dataType : "json",   // parsererror  에러남.  dataType은 json을 하고  결과값은 json으로 받지 못해서
+//		  method : "post",
+//		  success : function(d){
+//			  console.log(d);
+//		  },
+//		  error : function(e){
+//			  console.log(e);
+//		  }
+//	})
+//}
 
 function init(){
 	test();

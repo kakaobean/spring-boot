@@ -1,25 +1,34 @@
 package com.example.demo.board.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.couchbase.client.java.document.json.JsonArray;
-import com.example.demo.board.domain.parameterVO;
 import com.example.demo.board.service.BoardService;
 
 @Controller
@@ -89,24 +98,62 @@ public class BoardController {
 //			return boardService.selectDynamicData();
 		}
 	@RequestMapping(value="/uploadTest", method= RequestMethod.POST)
-	public @ResponseBody String uploadTest(MultipartHttpServletRequest req) throws Exception{
+	public @ResponseBody Map<String, Object> uploadTest(MultipartHttpServletRequest req) throws Exception{
 		
 //		Iterator<String> iter = req.getFileNames();
 //		MultipartFile files = req.getFile(iter.next());
-		MultipartFile file = req.getFile("testFile");
-		System.out.println(file.getOriginalFilename());
+		MultipartFile file = req.getFile("inputFile");
 		
-		return "success";
+		return boardService.excelRead(file);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/excelDownload", method= RequestMethod.POST)
-	public Map<String, Object> excelDownload(@RequestBody Map<String, Object> map) throws Exception{
-//		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(map.get("getRowData"));
-		map.put("data", "test");
-		return map;
+	public String excelDownload(@RequestBody Map<String, Object> map,
+											HttpServletResponse response) throws Exception{
+		
+		System.out.println(map);
+		
+		Workbook wb = boardService.createWorkbook(map);
+		
+		 // 컨텐츠 타입과 파일명 지정
+	    response.setContentType("ms-vnd/excel");
+//		response.setHeader("Set-Cookie", "fileDownload=true; path=/");
+	    response.setHeader("Content-Disposition", "attachment;filename=test123.xls");
+
+//	    FileOutputStream fileOut = new FileOutputStream("D:/work.xls");
+//	    wb.write(fileOut);
+	    // 엑셀 출력	
+	    wb.write(response.getOutputStream());
+	    wb.close();
+		
+		return "success";
 	}
+		
 	
+	 @RequestMapping(value = "/excelDown", method = RequestMethod.POST)
+	    public void ExcelDown(HttpServletResponse response) throws Exception{
+	        
+		  Map<String, Object> map = new HashMap<String, Object>();
+	        
+//	        try{
+	            //Excel Down 시작
+	        	Workbook workbook = boardService.createWb();
+	        	
+	            // 컨텐츠 타입과 파일명 지정
+	            response.setContentType("ms-vnd/excel");
+	            response.setHeader("Content-Disposition", "attachment;filename=test.xls");
+	 
+	            // 엑셀 출력
+	            workbook.write(response.getOutputStream());
+	            workbook.close();
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+
+
+	        
+	    }
+
 }
 

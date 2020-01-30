@@ -105,9 +105,9 @@
                             <div class="card">
                                 <div class="card-body">
                                     <form id="fileForm" name="fileForm" action="/uploadTest" enctype="multipart/form-data" method="post">
-                                        <input class="form-control form-control-lg" id="testFile" name="testFile" type="file" placeholder="File Upload" aria-label="Search">
-                                        <button class="btn btn-primary search-btn" onclick="fileUpload()">File Upload</button>
+                                        <input class="form-control form-control-lg" id="testFile" name="inputFile" type="file" placeholder="File Upload" aria-label="Search">
                                     </form>
+                                    <button class="btn btn-primary search-btn" onclick="fileUpload()">File Upload</button>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,13 @@
                             <!-- ============================================================== -->
                             <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                                 <div class="card">
+                               
+
+
                                     <h5 class="card-header">Recent Orders</h5>
+                                     <form name="excelForm" id="excelForm" method="POST" action="/excelDown">
+                                    	<button class="btn btn-primary search-btn" style="z-index:9999; bottom:300px;right:0px;" type="submit" id="excelDown" value="EXCEL 다운">download</button>
+									</form>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table id="jqgridTable">
