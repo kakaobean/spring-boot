@@ -104,6 +104,11 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-body">
+<!--                                 	ajax로 file 넘기기  :: onclick="fileUploadAjaxTest()" 로 이벤트 발생\ -->
+<!--                                     <form id="fileForm" name="fileForm"  enctype="multipart/form-data" method="post"> -->
+<!--                                         <input class="form-control form-control-lg" id="testFile" name="inputFile" type="file" placeholder="File Upload" aria-label="Search"> -->
+<!--                                     </form> -->
+<!--                                     <button class="btn btn-primary search-btn" onclick="fileUploadAjaxTest()">File Upload</button> -->
                                     <form id="fileForm" name="fileForm" action="/uploadTest" enctype="multipart/form-data" method="post">
                                         <input class="form-control form-control-lg" id="testFile" name="inputFile" type="file" placeholder="File Upload" aria-label="Search">
                                     </form>
@@ -131,6 +136,8 @@
 									</form>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
+                                         	<table id="excelTable">
+                                            </table>
                                             <table id="jqgridTable">
                                             </table>
                                         </div>

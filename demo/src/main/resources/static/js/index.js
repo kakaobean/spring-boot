@@ -18,8 +18,9 @@ function test(){
 }
 
 function makeTable(id, array, column){
+	$("#jqgridTable").empty();
 	var colModel = [];
-	$.each(column, function(idx, obj){
+	$.each(column, function(idx, obj){	
 		colModel.push({name:obj, align:'center'});
 	})
 //	column.forEach(function(a,b){
@@ -74,6 +75,7 @@ function fileUpload() {
 //        },
         success: function(d) {
         	console.log(d);
+        	makeTable('excelTable', d.dataList, d.columnList);
         },
         error: function(x,e){
         	// 2번 호출됨 
@@ -83,6 +85,27 @@ function fileUpload() {
     });
    $("#fileForm").submit();
 
+}
+
+// onclick="fileUploadAjaxTest()" 이벤트 발생시켜서 ajax로 file 을 넘긴다 .. 테스트 완료
+function fileUploadAjaxTest() {
+//  var formData = $("#testFile").serialize();
+  var form = $("form")[0];        
+  var formData = new FormData(form);
+  $.ajax({
+	  contentType: false,      //  ajax로 파일 업로드 할 땐  contentType 과 processData 를 false로 해야함.  
+	  processData: false,
+//      cache : false,
+      url : "/uploadTest", // 요기에
+      type : 'POST',    // method 나 type나 상관없다 
+      data : formData, 
+      success : function(d) {
+        console.log(d);
+      }, // success 
+      error : function(xhr, status) {
+          alert(xhr + " : " + status);
+      }
+  }); // $.ajax */
 }
 
 // jqgrid 5.4.0 버전에서 사용 가능    / jsp에서 jqgrid 버전 바꿔주고 실행하면 됨 
