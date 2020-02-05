@@ -131,6 +131,7 @@ public class BoardController {
 	}
 		
 	
+	 // 현재 쓰이고 있는 엑셀다운로드
 	 @RequestMapping(value = "/excelDown", method = RequestMethod.POST)
 	    public void ExcelDown(HttpServletResponse response) throws Exception{
 	        

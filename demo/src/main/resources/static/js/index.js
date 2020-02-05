@@ -17,7 +17,10 @@ function test(){
 		});
 }
 
+// jqgrid 생성 함수
 function makeTable(id, array, column){
+	$("#excelTableArea").empty();
+	$("#excelTableArea").append('<table id="excelTable"</table>');
 	$("#jqgridTable").empty();
 	var colModel = [];
 	$.each(column, function(idx, obj){	
@@ -35,19 +38,30 @@ function makeTable(id, array, column){
     $("#"+id).jqGrid({
            datatype: "local",  // datatype: "local" 로 하면 첫번째 row에 undefined 가 표현됨
            height: 250, 
-           width : 888,
+           width : 'auto',
+//           autowidth:true,      
            colNames : column,
            colModel : colModel,
            caption: "주민등록별 인구",
            rowNum : 1000,
            loadonce : true
-     });
+     });	
 
      for(var i in array){
           $("#"+id).jqGrid('addRowData',i+1,array[i]);
      }
      // 첫번째 row 에 undefined 나오는것 삭제  ( jqgrid 5.4.0 버전일 때 )
      $("#norecs").remove();
+     var gBox =$("#gbox_excelTable");
+     var gBoxW = gBox[0].style.width;
+     var gBoxInt = parseInt(gBoxW.substr(0, gBoxW.indexOf('px')));
+     
+     if(gBoxInt < 800){
+    	 gBox[0].style.width = "889px";
+    	 gBox.children()[2].children[0].style.width = "888px";
+    	 gBox.children()[2].children[1].style.width = "888px";     
+    	 $(".ui-jqgrid-bdiv")[0].style.width = "888px";
+     }
 }
 
 function fileUpload() {
@@ -141,7 +155,7 @@ function excelDown(){
 //}
 
 function init(){
-	test();
+//	test();
 }
 init();
 

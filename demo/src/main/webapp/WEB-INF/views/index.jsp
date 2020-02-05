@@ -135,7 +135,7 @@
                                     	<button class="btn btn-primary search-btn" style="z-index:9999; bottom:300px;right:0px;" type="submit" id="excelDown" value="EXCEL 다운">download</button>
 									</form>
                                     <div class="card-body p-0">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" id="excelTableArea">
                                          	<table id="excelTable">
                                             </table>
                                             <table id="jqgridTable">
