@@ -12,6 +12,9 @@
 <!-- 	<script src="resource/js/jqgrid/5.4.0/jquery.jqGrid.js"></script> -->
 	
 <!-- 	jqgrid 4버전  excel 다운로득 기능 없음 -->
+	<script src="resource/js/jqgrid/js/grid.celledit.js"></script>
+	<script src="resource/js/jqgrid/js/grid.common.js"></script>
+	<script src="resource/js/jqgrid/js/i18n/grid.locale-en.js"></script>
 	<script src="resource/js/jqgrid/js/jquery.jqGrid.js"></script>
 
 	<script src="resource/js/jszip.js"></script>

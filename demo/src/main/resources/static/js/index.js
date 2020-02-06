@@ -1,3 +1,18 @@
+var testColumn = [
+	{SGGNM : "202012", HOUSEPOPUL : ""},
+	{SGGNM : "202011", HOUSEPOPUL : ""},
+	{SGGNM : "202010", HOUSEPOPUL : ""},
+	{SGGNM : "202009", HOUSEPOPUL : ""},
+	{SGGNM : "202008", HOUSEPOPUL : ""},
+	{SGGNM : "202007", HOUSEPOPUL : ""},
+	{SGGNM : "202006", HOUSEPOPUL : ""},
+	{SGGNM : "202005", HOUSEPOPUL : ""},
+	{SGGNM : "202004", HOUSEPOPUL : ""},
+	{SGGNM : "202003", HOUSEPOPUL : ""},
+	{SGGNM : "202002", HOUSEPOPUL : ""},
+	{SGGNM : "202001", HOUSEPOPUL : ""}
+];
+
 function test(){
 	  $.ajax(
 		{
@@ -7,9 +22,9 @@ function test(){
             dataType : 'json',               /*html, text, json, xml, script*/
             method : 'post',
             success : function(d){
-                console.log("return Data : " + d.columnList);
-                console.log("return Data : " + d.dataList);
-                makeTable('jqgridTable', d.dataList, d.columnList);
+//                console.log("return Data : " + d.columnList);
+//                console.log("return Data : " + JSON.stringify(d.dataList));
+                makeTable('jqgridTable', testColumn, d.columnList);
             },
             error : function(e){
             	console.log(e);
@@ -19,12 +34,12 @@ function test(){
 
 // jqgrid 생성 함수
 function makeTable(id, array, column){
-	$("#excelTableArea").empty();
+//	$("#excelTableArea").empty();
 	$("#excelTableArea").append('<table id="excelTable"</table>');
 	$("#jqgridTable").empty();
 	var colModel = [];
 	$.each(column, function(idx, obj){	
-		colModel.push({name:obj, align:'center'});
+		colModel.push({name:obj, align:'center', editable : true});
 	})
 //	column.forEach(function(a,b){
 //		console.log(a+' '+b)
@@ -35,6 +50,7 @@ function makeTable(id, array, column){
 	
 	console.log("column" + column);
 	console.log(colModel);
+	
     $("#"+id).jqGrid({
            datatype: "local",  // datatype: "local" 로 하면 첫번째 row에 undefined 가 표현됨
            height: 250, 
@@ -44,7 +60,44 @@ function makeTable(id, array, column){
            colModel : colModel,
            caption: "주민등록별 인구",
            rowNum : 1000,
-           loadonce : true
+//           cellEdit : true,
+           loadonce : true,
+           multiselect:true,
+           onSelectRow: function(rowid, iRow, iCol, e){
+    	   		console.log(rowid+"\n"+ iRow+"\n"+ JSON.stringify(iCol)+"\n"+ e);           
+//    	   		$("#jqgridTable").editRow(d);
+           }
+//           afterEditCell:function(rowid, cellname, value, iRow, iCol){
+//           	alert(rowid+" \n"+ cellname+" \n"+ value+" \n"+ iRow+" \n"+ iCol);
+//           },
+//beforeSelectRow: function (rowid, e) {
+//    var $self = $(this), iCol, cm,
+//    $td = $(e.target).closest("tr.jqgrow>td"),
+//    $tr = $td.closest("tr.jqgrow"),
+//    p = $self.jqGrid("getGridParam");
+//
+//    if ($(e.target).is("input[type=checkbox]") && $td.length > 0) {
+//       iCol = $.jgrid.getCellIndex($td[0]);
+//       cm = p.colModel[iCol];
+//       if (cm != null && cm.name === "cb") {
+//           // multiselect checkbox is clicked
+//           $self.jqGrid("setSelection", $tr.attr("id"), true ,e);
+//       }
+//    }
+//    return false;
+//}
+
+           
+//           ,
+//           onSelectRow: function(d){           //jqGrid의 row를 선택했을 때 이벤트 발생
+//               if( lastid != d ){
+//                jQuery("#"+id).jqGrid('restoreRow',lastid,true);    //해당 row 가 수정모드에서 뷰모드(?)로 변경
+//                jQuery("#"+id).jqGrid('editRow',id,false);  //해당 row가 수정모드(?)로 변경
+//
+//                lastid = d;
+//               }
+//
+//        }
      });	
 
      for(var i in array){
@@ -52,16 +105,32 @@ function makeTable(id, array, column){
      }
      // 첫번째 row 에 undefined 나오는것 삭제  ( jqgrid 5.4.0 버전일 때 )
      $("#norecs").remove();
-     var gBox =$("#gbox_excelTable");
-     var gBoxW = gBox[0].style.width;
-     var gBoxInt = parseInt(gBoxW.substr(0, gBoxW.indexOf('px')));
-     
-     if(gBoxInt < 800){
-    	 gBox[0].style.width = "889px";
-    	 gBox.children()[2].children[0].style.width = "888px";
-    	 gBox.children()[2].children[1].style.width = "888px";     
-    	 $(".ui-jqgrid-bdiv")[0].style.width = "888px";
-     }
+     var rowIdArr = $("#jqgridTable").getDataIDs();
+     $("#cb_jqgridTable").click(function(){
+		if($("#cb_jqgridTable")[0].checked){
+			rowIdArr.forEach(function(item){
+				$("#jqgridTable").editRow(item);
+			});
+		}else{
+			rowIdArr.forEach(function(item){
+				$("#jqgridTable").saveRow(item);
+			});
+		}
+     });
+//     gBoxWidth();
+}
+
+function gBoxWidth() {
+	var gBox =$("#gbox_excelTable");
+	var gBoxW = gBox[0].style.width;
+	var gBoxInt = parseInt(gBoxW.substr(0, gBoxW.indexOf('px')));
+	
+	if(gBoxInt < 800){
+		gBox[0].style.width = "889px";
+		gBox.children()[2].children[0].style.width = "888px";
+		gBox.children()[2].children[1].style.width = "888px";     
+		$(".ui-jqgrid-bdiv")[0].style.width = "888px";
+	}
 }
 
 function fileUpload() {
@@ -155,7 +224,7 @@ function excelDown(){
 //}
 
 function init(){
-//	test();
+	test();
 }
 init();
 
